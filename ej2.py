@@ -4,9 +4,6 @@ import matplotlib.pyplot as plt
 import sys
 
 
-formulario = 'formulario_vacio.png'
-img = cv2.imread(formulario,cv2.IMREAD_GRAYSCALE)
-
 def umbralizar(img):
   '''Recibe una imagen y le aplica
   un umbral binario invertido'''
@@ -57,7 +54,7 @@ def hallar_columnas(imagen):
 
 
 def contar_letras(binary_image, th_area):
-'''Cuenta los caracteres contenidos en la imagen binaria que recibe 
+    '''Cuenta los caracteres contenidos en la imagen binaria que recibe 
     por parámetro en base a un umbral mediante componentes conectadas.'''
   
     # Realizar la segmentación de componentes conectados
@@ -85,7 +82,7 @@ def contar_letras(binary_image, th_area):
 
 
 def contar_palabras(binary_image, th_area, umbral_distancia):
-'''Cuenta las palabras de la imagen binaria que recibe por parámetro en base a un 
+    '''Cuenta las palabras de la imagen binaria que recibe por parámetro en base a un 
     umbral de área y un umbral de distancia.'''
 
     # Componentes conectados
@@ -125,7 +122,7 @@ def contar_palabras(binary_image, th_area, umbral_distancia):
     return len(palabras)
 
 def validar_requerimientos(renglones_filtrados):
-'''Recibe una lista de diccionarios con información acerca de los campos que nos interesan
+  '''Recibe una lista de diccionarios con información acerca de los campos que nos interesan
   y devuelve un diccionario con los resultados obtenidos.'''
   resultados = {}
 
@@ -184,7 +181,7 @@ def validar_requerimientos(renglones_filtrados):
      
 
 def validar(formulario):
-'''Recibe la imagen de un formulario y devuelve una lista de diccionarios con los
+  '''Recibe la imagen de un formulario y devuelve una lista de diccionarios con los
   renglones que contienen información relevante.'''
   #Guarda formulario
   img = cv2.imread(formulario,cv2.IMREAD_GRAYSCALE)
@@ -266,3 +263,4 @@ formulario = sys.argv[1]   #'formulario_01.png'
 resultado = validar(formulario)
 
 print(resultado)
+
