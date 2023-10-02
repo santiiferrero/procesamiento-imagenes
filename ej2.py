@@ -7,17 +7,10 @@ import sys
 formulario = 'formulario_vacio.png'
 img = cv2.imread(formulario,cv2.IMREAD_GRAYSCALE)
 
-def umbralizar(imagen):
+def umbralizar(img):
   '''Recibe una imagen y le aplica
   un umbral binario invertido'''
-  T = (img.min() + img.max())/2
-  flag = False
-  while ~flag:
-    g = img >= T
-    Tnext = 0.5*(np.mean(img[g]) + np.mean(img[~g]))
-    flag = np.abs(T-Tnext) < 0.5
-    T = Tnext
-  _, img_th  = cv2.threshold(imagen, thresh=T, maxval=255, type=cv2.THRESH_BINARY_INV)
+  _, img_th  = cv2.threshold(img, thresh=170, maxval=255, type=cv2.THRESH_BINARY_INV)
   return img_th
 
 
@@ -63,14 +56,10 @@ def hallar_columnas(imagen):
   return columnas_ind
 
 
-#funcion para contar letras.
-#basicamente se utiliza todo de cv2.connectedComponentsWithStats
-
-#lo mas importante son los argumentos que recibe la funcion
-#th_area = 10  # Umbral del area de componentes conectadas, para que no se cuenten los bordes
-
-
 def contar_letras(binary_image, th_area):
+'''Cuenta los caracteres contenidos en la imagen binaria que recibe 
+    por parámetro en base a un umbral mediante componentes conectadas.'''
+  
     # Realizar la segmentación de componentes conectados
     comp = cv2.connectedComponentsWithStats(binary_image, 8, cv2.CV_32S)
 
@@ -95,14 +84,9 @@ def contar_letras(binary_image, th_area):
     return letter_counts
 
 
-#funcion para contar palabras.
-#basicamente se utiliza todo de cv2.connectedComponentsWithStats, ahi estan todas las estadisitcas de las distancias
-
-#lo mas importante son los argumentos que recibe la funcion
-#th_area = 10  # Umbral del area de componentes conectadas
-# umbral_distancia = 6  # Umbral de distancia entre palabras
-
 def contar_palabras(binary_image, th_area, umbral_distancia):
+'''Cuenta las palabras de la imagen binaria que recibe por parámetro en base a un 
+    umbral de área y un umbral de distancia.'''
 
     # Componentes conectados
     comp = cv2.connectedComponentsWithStats(binary_image, 8, cv2.CV_32S)
@@ -141,6 +125,8 @@ def contar_palabras(binary_image, th_area, umbral_distancia):
     return len(palabras)
 
 def validar_requerimientos(renglones_filtrados):
+'''Recibe una lista de diccionarios con información acerca de los campos que nos interesan
+  y devuelve un diccionario con los resultados obtenidos.'''
   resultados = {}
 
   #NOMBRE Y APELLIDO
@@ -198,6 +184,8 @@ def validar_requerimientos(renglones_filtrados):
      
 
 def validar(formulario):
+'''Recibe la imagen de un formulario y devuelve una lista de diccionarios con los
+  renglones que contienen información relevante.'''
   #Guarda formulario
   img = cv2.imread(formulario,cv2.IMREAD_GRAYSCALE)
 
