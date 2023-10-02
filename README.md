@@ -1,4 +1,10 @@
-# procesamiento-imagenes
+# Trabajo Práctico 1
+## Procesamiento de imágenes
+## Integrantes
+- Enzo Ferrari
+- Abril Nazarena Rodriguez
+- Santiago Loza
+- Santiago Ferrero
 
 Para correr este proyecto, debe asegurarse que cuenta con Python instalado, y tambien las librerias Matplotlib, NumPy y cv2.
 
